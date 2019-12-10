@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/search_bar"
+                android:padding="@dimen/_15sdp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:fontFamily="@font/nunito_light"
+                    android:hint="@string/searh_placeholder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <ImageButton
+                    android:id="@+id/searchImg"
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:background="#00FFFFFF"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/animeSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@drawable/subtitle_background"
+                    android:layout_height="@dimen/_120sdp"/>
+                <TextView
+                    android:id="@+id/tittleAnimeTextView"
+                    android:text="@string/anime"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_15sdp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/animeRecycler"
+                    android:layout_below="@id/tittleAnimeTextView"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mangaSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@drawable/subtitle_background"
+                    android:layout_height="@dimen/_120sdp"/>
+                <TextView
+                    android:id="@+id/tittleMangaTextView"
+                    android:text="@string/manga"
+                    android:paddingStart="@dimen/_15sdp"
+                    android:paddingTop="@dimen/_15sdp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mangaRecycler"
+                    android:layout_below="@id/tittleMangaTextView"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
