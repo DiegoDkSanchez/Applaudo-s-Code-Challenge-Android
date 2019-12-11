@@ -14,7 +14,47 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_width="@dimen/_160sdp"
         android:layout_height="@dimen/_240sdp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/title"
+                android:text="Titulo de el anime"
+                android:textColor="@color/white"
+                android:elevation="@dimen/_2sdp"
+                android:fontFamily="@font/nunito_bold"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:textSize="@dimen/_14sdp"
+                android:layout_above="@id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/subtitle"
+                android:text="nombre en Otaku"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:elevation="@dimen/_2sdp"
+                android:textSize="@dimen/_8sdp"
+                android:fontFamily="@font/nunito_light"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="@dimen/_1sdp"
+                android:background="@drawable/item_sub_background"/>
+            <ImageView
+                android:id="@+id/backgroundItem"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

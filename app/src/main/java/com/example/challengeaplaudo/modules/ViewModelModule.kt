@@ -6,10 +6,8 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val ViewModelModule = module {
-
-    // single instance of Service
-    single{ Service() }
-
     //ViewModel
     viewModel { MainViewModel(get()) }
+    // single instance of Service
+    single{ Service() }
 }

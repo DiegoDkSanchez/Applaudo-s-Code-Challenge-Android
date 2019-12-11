@@ -3,4 +3,6 @@
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
     <string name="searh_placeholder">What are you looking for?</string>
+    <string name="episodes">episodies</string>
+    <string name="chapters">chapters</string>
 </resources>
