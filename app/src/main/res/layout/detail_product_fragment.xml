@@ -12,6 +12,18 @@
             android:layout_width="match_parent"
             android:background="@drawable/subtitle_background"
             android:layout_height="@dimen/_120sdp"/>
+        <Button
+            android:id="@+id/youtubeVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:text="@string/youtube_trailer"
+            android:textAllCaps="false"
+            android:fontFamily="@font/nunito_bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_toRightOf="@id/cardViewDetail"/>
         <TextView
             android:id="@+id/productTittle"
             android:textSize="@dimen/_20sdp"
@@ -22,8 +34,8 @@
             android:layout_height="wrap_content"
             android:text="Product Tittle"/>
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewDetail"
             android:layout_below="@id/productTittle"
-            android:transitionName="secondCover"
             app:cardCornerRadius="@dimen/_25sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"

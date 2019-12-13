@@ -14,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.Glide
+import com.example.challengeaplaudo.Constants
 import com.example.challengeaplaudo.MainViewModel
 import com.example.challengeaplaudo.R
 import com.example.challengeaplaudo.helpers.DynamicAdapter
@@ -32,10 +33,14 @@ class MainListFragment: Fragment() {
 
     private fun loadObservers() {
         viewmodel.animeList.observe(this, Observer { animes ->
-            loadAnimeList(animes)
+            animeRecycler.configureList(false)
+            animeRecycler.adapter = createAdapterProducts(animes)
+            snapHelperAnime.attachToRecyclerView(animeRecycler)
         })
         viewmodel.mangaList.observe(this, Observer { mangas ->
-            loadMangaList(mangas)
+            mangaRecycler.configureList(false)
+            mangaRecycler.adapter = createAdapterProducts(mangas)
+            snapHelperManga.attachToRecyclerView(mangaRecycler)
         })
     }
 
@@ -46,17 +51,14 @@ class MainListFragment: Fragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        println("Se empieza a cargar todo")
-        viewmodel.loadAnimes()
-        viewmodel.loadMangas()
         loadObservers()
+        viewmodel.getProducts()
     }
 
-    private fun loadMangaList(mangas : List<Product>) {
-        mangaRecycler.configureList(false)
-        mangaRecycler.adapter = DynamicAdapter(
+    private fun createAdapterProducts(list : List<Product>): DynamicAdapter<Product> {
+        return DynamicAdapter(
             R.layout.product_item,
-            mangas,
+            list,
             action = fun(viewHolder, view, item, position) {
                 val uri = item.attributes.posterImage?.medium
                 Glide.with(activity)
@@ -65,55 +67,23 @@ class MainListFragment: Fragment() {
                     .apply(GlideConst.CONFIG_GLIDE)
                     .into(view.backgroundItem)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    view.backgroundItem.transitionName = uri
+                    view.cardView.transitionName = uri
+                }
+                if(item.type == Constants.ANIME){
+                    view.subtitle.text = item.attributes.episodeCount.toString() + " " + getString(R.string.episodes)
+                }else if(item.type == Constants.MANGA){
+                    view.subtitle.text = item.attributes.chapterCount.toString() + " " + getString(R.string.chapters)
                 }
                 view.backgroundItem.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.title.text = item.attributes.titles.en_jp
-                view.subtitle.text = item.attributes.chapterCount.toString() + " " + getString(R.string.chapters)
                 view.setOnClickListener {
                     val extras = FragmentNavigatorExtras(
-                        view.backgroundItem to uri.toString()
+                        view.cardView to uri.toString()
                     )
-                    val action = MainListFragmentDirections.actionMainListFragmentToDetailProductFragment(uri)
-                    view.findNavController().navigate(action, extras)
+                    val action = MainListFragmentDirections.actionMainListFragmentToDetailProductFragment(uri, product = item)
+                    view.findNavController().navigate(action,extras)
                 }
             }
         )
-        snapHelperManga.attachToRecyclerView(mangaRecycler)
     }
-
-    private fun loadAnimeList(animes : List<Product>) {
-        animeRecycler.configureList(false)
-        animeRecycler.adapter = DynamicAdapter(
-            R.layout.product_item,
-            animes,
-            action = fun(viewHolder, view, item, position) {
-                val uri = item.attributes.posterImage?.medium
-                Glide.with(activity)
-                    .asBitmap()
-                    .load(uri)
-                    .apply(GlideConst.CONFIG_GLIDE)
-                    .into(view.backgroundItem)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    view.backgroundItem.transitionName = uri
-                }
-                view.backgroundItem.scaleType = ImageView.ScaleType.CENTER_CROP
-                view.title.text = item.attributes.titles.en_jp
-                view.subtitle.text = item.attributes.episodeCount.toString() + " " + getString(R.string.episodes)
-                view.setOnClickListener {
-                    val extras = FragmentNavigatorExtras(
-                        view.backgroundItem to uri.toString()
-                    )
-                    val action = MainListFragmentDirections.actionMainListFragmentToDetailProductFragment(uri)
-                    view.findNavController().navigate(action, extras)
-                }
-            }
-        )
-        snapHelperAnime.attachToRecyclerView(animeRecycler)
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 }

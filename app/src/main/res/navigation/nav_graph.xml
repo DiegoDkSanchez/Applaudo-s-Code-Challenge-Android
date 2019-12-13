@@ -24,5 +24,10 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="null" />
+        <argument
+            android:name="product"
+            app:argType="com.example.challengeaplaudo.models.Product"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
