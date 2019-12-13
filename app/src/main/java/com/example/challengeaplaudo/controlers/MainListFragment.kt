@@ -1,6 +1,7 @@
 package com.example.challengeaplaudo.controlers
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.Glide
@@ -24,6 +27,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class MainListFragment: Fragment() {
 
     private val viewmodel : MainViewModel by sharedViewModel()
+    private val snapHelperAnime = LinearSnapHelper()
+    private val snapHelperManga = LinearSnapHelper()
 
     private fun loadObservers() {
         viewmodel.animeList.observe(this, Observer { animes ->
@@ -53,17 +58,28 @@ class MainListFragment: Fragment() {
             R.layout.product_item,
             mangas,
             action = fun(viewHolder, view, item, position) {
+                val uri = item.attributes.posterImage?.medium
                 Glide.with(activity)
                     .asBitmap()
-                    .load(Uri.parse(item.attributes.posterImage?.medium))
+                    .load(uri)
                     .apply(GlideConst.CONFIG_GLIDE)
                     .into(view.backgroundItem)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.backgroundItem.transitionName = uri
+                }
                 view.backgroundItem.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.title.text = item.attributes.titles.en_jp
                 view.subtitle.text = item.attributes.chapterCount.toString() + " " + getString(R.string.chapters)
+                view.setOnClickListener {
+                    val extras = FragmentNavigatorExtras(
+                        view.backgroundItem to uri.toString()
+                    )
+                    val action = MainListFragmentDirections.actionMainListFragmentToDetailProductFragment(uri)
+                    view.findNavController().navigate(action, extras)
+                }
             }
         )
-        LinearSnapHelper().attachToRecyclerView(mangaRecycler)
+        snapHelperManga.attachToRecyclerView(mangaRecycler)
     }
 
     private fun loadAnimeList(animes : List<Product>) {
@@ -72,17 +88,32 @@ class MainListFragment: Fragment() {
             R.layout.product_item,
             animes,
             action = fun(viewHolder, view, item, position) {
+                val uri = item.attributes.posterImage?.medium
                 Glide.with(activity)
                     .asBitmap()
-                    .load(Uri.parse(item.attributes.posterImage?.medium))
+                    .load(uri)
                     .apply(GlideConst.CONFIG_GLIDE)
                     .into(view.backgroundItem)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.backgroundItem.transitionName = uri
+                }
                 view.backgroundItem.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.title.text = item.attributes.titles.en_jp
                 view.subtitle.text = item.attributes.episodeCount.toString() + " " + getString(R.string.episodes)
+                view.setOnClickListener {
+                    val extras = FragmentNavigatorExtras(
+                        view.backgroundItem to uri.toString()
+                    )
+                    val action = MainListFragmentDirections.actionMainListFragmentToDetailProductFragment(uri)
+                    view.findNavController().navigate(action, extras)
+                }
             }
         )
-        LinearSnapHelper().attachToRecyclerView(animeRecycler)
+        snapHelperAnime.attachToRecyclerView(animeRecycler)
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 }

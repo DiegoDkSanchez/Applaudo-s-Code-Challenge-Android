@@ -26,6 +26,7 @@ class Service {
 
     fun getAnimes(){
         val service = makeRetrofitService()
+        println("Servicio animes")
         CoroutineScope(Dispatchers.IO).launch {
             val response = service.getProductAnimes()
             withContext(Dispatchers.Main) {
@@ -33,8 +34,9 @@ class Service {
                     if (response.isSuccessful) {
                         val productResponse = response.body()
                         productListener?.animeListener(productResponse?.data)
+                        println("ANIMES succes")
                     } else {
-
+                        println("ANIMES fail")
                     }
                 } catch (e: HttpException) {
                     println(e)

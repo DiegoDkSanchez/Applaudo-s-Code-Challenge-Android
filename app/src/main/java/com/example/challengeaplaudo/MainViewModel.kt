@@ -14,10 +14,10 @@ class MainViewModel(private var service: Service): ViewModel() {
     init {
         service.setProductListener(object : ProductListener{
             override fun mangaListener(mangas: List<Product>?) {
-                mangaList.value = mangas
+                mangaList.postValue(mangas)
             }
             override fun animeListener(animes: List<Product>?) {
-               animeList.value = animes
+               animeList.postValue(animes)
             }
         })
     }

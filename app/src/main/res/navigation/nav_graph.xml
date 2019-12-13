@@ -9,5 +9,20 @@
         android:id="@+id/mainListFragment"
         android:name="com.example.challengeaplaudo.controlers.MainListFragment"
         tools:layout="@layout/main_list_fragment"
-        android:label="MainListFragment" />
+        android:label="MainListFragment" >
+        <action
+            android:id="@+id/action_mainListFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="com.example.challengeaplaudo.controlers.DetailProductFragment"
+        tools:layout="@layout/detail_product_fragment"
+        android:label="DetailProductFragment" >
+        <argument
+            android:name="uri"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </fragment>
 </navigation>
