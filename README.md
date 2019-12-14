@@ -1,7 +1,7 @@
 # Applaudo-s-Code-Challenge-Android
 
 This is a App make with Kotlin android native
-Use MVVM architecture model with dependencies inyection
+Use MVVM architecture model with dependencies inyection.
 Libraries used:
 
 Navigation Component(JetPack)
