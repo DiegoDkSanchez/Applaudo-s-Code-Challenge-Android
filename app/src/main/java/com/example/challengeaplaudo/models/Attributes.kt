@@ -13,8 +13,8 @@ data class Attributes(
     val episodeLength: Int?,
     val chapterCount: Int?,
     val posterImage: PosterImage?,
-    val slug: String,
-    val youtubeVideoId: String
+    val slug: String?,
+    val youtubeVideoId: String?
 ): Serializable
 
 data class CoverImage(

@@ -92,7 +92,8 @@ class MainListFragment: Fragment() {
                 if(item.type == Constants.ANIME){
                     view.subtitle.text = item.attributes.episodeCount.toString() + " " + getString(R.string.episodes)
                 }else if(item.type == Constants.MANGA){
-                    view.subtitle.text = item.attributes.chapterCount.toString() + " " + getString(R.string.chapters)
+                    if(item.attributes?.chapterCount == null) view.subtitle.text = getString(R.string.without_chapters_register)
+                    else view.subtitle.text = item.attributes.chapterCount.toString() + " " + getString(R.string.chapters)
                 }
                 view.backgroundItem.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.title.text = item.attributes.titles.en_jp

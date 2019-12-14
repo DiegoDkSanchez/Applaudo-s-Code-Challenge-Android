@@ -29,64 +29,64 @@ class Service {
     }
 
     fun getAnimes(currentPages: Int?, text: String?){
-        val service = makeRetrofitService()
         try{
+            val service = makeRetrofitService()
             if(currentPages != null){
                 service.client(createInterceptopAddPages(currentPages))
             }else if(text.toString().trim().isNotEmpty()){
                 service.client(createInterceptopSearch(text.toString()))
             }
-        }catch (e: Exception){
-            println(e)
-        }
-        val call = service.build().create(ServiceInterface::class.java)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = call.getProductAnimes()
-            withContext(Dispatchers.Main) {
-                try {
-                    if (response.isSuccessful) {
-                        val productResponse = response.body()
-                        productListener?.animeListener(productResponse?.data)
-                    } else {
+            val call = service.build().create(ServiceInterface::class.java)
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = call.getProductAnimes()
+                withContext(Dispatchers.Main) {
+                        try {
+                        if (response.isSuccessful) {
+                            val productResponse = response.body()
+                            productListener?.animeListener(productResponse?.data)
+                        } else {
 
+                        }
+                    } catch (e: HttpException) {
+                        println(e)
+                    } catch (e: Throwable) {
+                        println(e)
                     }
-                } catch (e: HttpException) {
-                    println(e)
-                } catch (e: Throwable) {
-                    println(e)
                 }
             }
+        }catch (e: Exception){
+            println(e)
         }
     }
 
     fun getMangas(currentPages: Int?, text: String?){
-        val service = makeRetrofitService()
         try {
+            val service = makeRetrofitService()
             if(currentPages != null){
                 service.client(createInterceptopAddPages(currentPages))
             }else if(text.toString().trim().isNotEmpty()){
                 service.client(createInterceptopSearch(text.toString()))
             }
-        }catch (e: Exception){
-            println(e)
-        }
-        val call = service.build().create(ServiceInterface::class.java)
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = call.getProductManga()
-            withContext(Dispatchers.Main) {
-                try {
-                    if (response.isSuccessful) {
-                        val productResponse = response.body()
-                        productListener?.mangaListener(productResponse?.data)
-                    } else {
+            val call = service.build().create(ServiceInterface::class.java)
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = call.getProductManga()
+                withContext(Dispatchers.Main) {
+                    try {
+                        if (response.isSuccessful) {
+                            val productResponse = response.body()
+                            productListener?.mangaListener(productResponse?.data)
+                        } else {
 
+                        }
+                    } catch (e: HttpException) {
+                        println(e)
+                    } catch (e: Throwable) {
+                        println(e)
                     }
-                } catch (e: HttpException) {
-                    println(e)
-                } catch (e: Throwable) {
-                    println(e)
                 }
             }
+        }catch (e: Exception){
+            println(e)
         }
     }
 

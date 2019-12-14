@@ -17,6 +17,9 @@ import kotlinx.android.synthetic.main.detail_product_fragment.*
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import com.example.challengeaplaudo.Constants
+import com.example.challengeaplaudo.helpers.gone
+import com.example.challengeaplaudo.helpers.visible
 
 
 class DetailProductFragment: Fragment() {
@@ -50,9 +53,31 @@ class DetailProductFragment: Fragment() {
             .apply(GlideConst.CONFIG_GLIDE)
             .into(coverImage)
         productTittle.text = product?.attributes?.titles?.en_jp
-        if(product?.attributes?.youtubeVideoId == null) youtubeVideo.visibility = View.GONE
+        if(product?.attributes?.youtubeVideoId == null) youtubeVideo.visibility = View.INVISIBLE
         youtubeVideo.setOnClickListener {
             if(product?.attributes?.youtubeVideoId != null) watchYoutubeVideo(product?.attributes?.youtubeVideoId!!)
+        }
+        typeProductTextView.text = product?.type?.capitalize()
+        if(product?.type == Constants.ANIME){
+            chaptersOrEpisodesTextView.text = product?.attributes?.episodeCount.toString() + " " + getString(R.string.episodes)
+        }else if(product?.type == Constants.MANGA){
+            if(product?.attributes?.chapterCount == null) chaptersOrEpisodesTextView.text = getString(R.string.without_chapters_register)
+            else chaptersOrEpisodesTextView.text = product?.attributes?.chapterCount.toString() + " " + getString(R.string.chapters)
+        }
+        ageRatingTextView.text = product?.attributes?.ageRating
+        ageRatingGuideTextView.text = product?.attributes?.ageRatingGuide
+        averageRatingTextView.text = product?.attributes?.averageRating
+        if(product?.attributes?.episodeLength == null) episodeLengthLayout.gone()
+        else episodeLengthTextView.text = product?.attributes?.episodeLength.toString() + " " + getString(R.string.min)
+        synopsisTextView.text = product?.attributes?.synopsis
+        if(product?.attributes?.coverImage?.original == null) coverImageView.gone()
+        else {
+            Glide.with(activity)
+                .asBitmap()
+                .load(product?.attributes?.coverImage?.original)
+                .apply(GlideConst.CONFIG_GLIDE)
+                .into(coverImageView)
+
         }
     }
 
