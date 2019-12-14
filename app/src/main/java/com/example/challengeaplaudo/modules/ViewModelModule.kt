@@ -10,5 +10,5 @@ val ViewModelModule = module {
     //ViewModel
     viewModel { MainViewModel(get()) }
     // single instance of Service
-    single{ Service().getRetrofit<ServiceInterface>() }
+    single{ Service()}
 }

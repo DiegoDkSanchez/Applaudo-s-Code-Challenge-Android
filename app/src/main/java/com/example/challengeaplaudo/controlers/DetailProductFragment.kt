@@ -50,6 +50,7 @@ class DetailProductFragment: Fragment() {
             .apply(GlideConst.CONFIG_GLIDE)
             .into(coverImage)
         productTittle.text = product?.attributes?.titles?.en_jp
+        if(product?.attributes?.youtubeVideoId == null) youtubeVideo.visibility = View.GONE
         youtubeVideo.setOnClickListener {
             if(product?.attributes?.youtubeVideoId != null) watchYoutubeVideo(product?.attributes?.youtubeVideoId!!)
         }

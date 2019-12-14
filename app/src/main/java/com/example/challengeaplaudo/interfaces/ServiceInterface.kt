@@ -2,12 +2,15 @@ package com.example.challengeaplaudo.interfaces
 
 import com.example.challengeaplaudo.models.ProductResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 interface ServiceInterface {
     @GET("anime/")
-    fun getProductAnimes(): Call<ProductResponse>
+    suspend fun getProductAnimes(): Response<ProductResponse>
+
+//    Call<ItemResponse> getItems(@Query("param1") String param1, @Query("param2") String param2, @Query("param3") String param3);
 
     @GET("manga/")
-    fun getProductManga(): Call<ProductResponse>
+    suspend fun getProductManga(): Response<ProductResponse>
 }

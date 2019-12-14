@@ -1,5 +1,7 @@
 package com.example.challengeaplaudo.models
 
+import java.io.Serializable
+
 data class Attributes(
     val titles: Titles,
     val synopsis: String,
@@ -13,14 +15,14 @@ data class Attributes(
     val posterImage: PosterImage?,
     val slug: String,
     val youtubeVideoId: String
-)
+): Serializable
 
 data class CoverImage(
     val large: String,
     val original: String,
     val small: String,
     val tiny: String
-)
+): Serializable
 
 data class PosterImage(
     val large: String,
@@ -28,10 +30,10 @@ data class PosterImage(
     val original: String,
     val small: String,
     val tiny: String
-)
+): Serializable
 
 data class Titles(
     val en: String?,
     val en_jp: String?,
     val ja_jp: String?
-)
+): Serializable

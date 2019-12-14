@@ -6,4 +6,6 @@
     <string name="episodes">episodies</string>
     <string name="chapters">chapters</string>
     <string name="youtube_trailer">Trailer</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
 </resources>

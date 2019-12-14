@@ -17,9 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.challengeaplaudo.Constants
 import com.example.challengeaplaudo.MainViewModel
 import com.example.challengeaplaudo.R
-import com.example.challengeaplaudo.helpers.DynamicAdapter
-import com.example.challengeaplaudo.helpers.GlideConst
-import com.example.challengeaplaudo.helpers.configureList
+import com.example.challengeaplaudo.helpers.*
 import com.example.challengeaplaudo.models.Product
 import kotlinx.android.synthetic.main.main_list_fragment.*
 import kotlinx.android.synthetic.main.product_item.view.*
@@ -30,17 +28,15 @@ class MainListFragment: Fragment() {
     private val viewmodel : MainViewModel by sharedViewModel()
     private val snapHelperAnime = LinearSnapHelper()
     private val snapHelperManga = LinearSnapHelper()
+    private var currentPageAnime = 0
+    private var currentPageManga = 0
 
     private fun loadObservers() {
         viewmodel.animeList.observe(this, Observer { animes ->
-            animeRecycler.configureList(false)
-            animeRecycler.adapter = createAdapterProducts(animes)
-            snapHelperAnime.attachToRecyclerView(animeRecycler)
+            setAnimeConfiguration(animes)
         })
         viewmodel.mangaList.observe(this, Observer { mangas ->
-            mangaRecycler.configureList(false)
-            mangaRecycler.adapter = createAdapterProducts(mangas)
-            snapHelperManga.attachToRecyclerView(mangaRecycler)
+            setMangaConfiguration(mangas)
         })
     }
 
@@ -52,7 +48,31 @@ class MainListFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loadObservers()
+        loadListener()
+        currentPageAnime = 0
+        currentPageManga = 0
+        loadingAnime.showLoading()
+        loadingManga.showLoading()
         viewmodel.getProducts()
+    }
+
+    private fun setAnimeConfiguration(animes : List<Product>){
+        animeRecycler.configureList(false)
+        if(currentPageAnime == 0) backAnimeButton.visibility = View.GONE
+        else backAnimeButton.visibility = View.VISIBLE
+        animeRecycler.adapter = createAdapterProducts(animes)
+        loadingAnime.stopLoading()
+        enableButtons()
+        snapHelperAnime.attachToRecyclerView(animeRecycler)
+    }
+    private fun setMangaConfiguration(mangas : List<Product>){
+        mangaRecycler.configureList(false)
+        if(currentPageManga == 0) backMangaButton.visibility = View.GONE
+        else backMangaButton.visibility = View.VISIBLE
+        mangaRecycler.adapter = createAdapterProducts(mangas)
+        loadingManga.stopLoading()
+        enableButtons()
+        snapHelperManga.attachToRecyclerView(mangaRecycler)
     }
 
     private fun createAdapterProducts(list : List<Product>): DynamicAdapter<Product> {
@@ -85,5 +105,53 @@ class MainListFragment: Fragment() {
                 }
             }
         )
+    }
+    private fun loadListener() {
+        searchImg.setOnClickListener {
+            disableButtons()
+            viewmodel.searchProducts(textSerachEditText.text.toString())
+            loadingAnime.showLoading()
+            loadingManga.showLoading()
+        }
+        nextAnimeButton.setOnClickListener {
+            disableButtons()
+            currentPageAnime += 20
+            loadingAnime.showLoading()
+            viewmodel.loadAnimes(currentPageAnime)
+        }
+        backAnimeButton.setOnClickListener {
+            disableButtons()
+            currentPageAnime -= 20
+            loadingAnime.showLoading()
+            viewmodel.loadAnimes(currentPageAnime)
+        }
+        nextMangaButton.setOnClickListener {
+            disableButtons()
+            currentPageManga += 20
+            loadingManga.showLoading()
+            viewmodel.loadMangas(currentPageManga)
+        }
+        backMangaButton.setOnClickListener {
+            disableButtons()
+            currentPageManga -= 20
+            loadingManga.showLoading()
+            viewmodel.loadMangas(currentPageManga)
+        }
+    }
+
+    private fun disableButtons() {
+        nextAnimeButton.isEnabled = false
+        backAnimeButton.isEnabled = false
+        nextMangaButton.isEnabled = false
+        backMangaButton.isEnabled = false
+        searchImg.isEnabled = false
+    }
+
+    private fun enableButtons(){
+        nextAnimeButton.isEnabled = true
+        backAnimeButton.isEnabled = true
+        nextMangaButton.isEnabled = true
+        backMangaButton.isEnabled = true
+        searchImg.isEnabled = true
     }
 }

@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
+                    android:id="@+id/textSerachEditText"
                     android:fontFamily="@font/nunito_light"
                     android:hint="@string/searh_placeholder"
                     android:layout_width="0dp"
@@ -43,20 +44,54 @@
                     android:layout_height="@dimen/_120sdp"/>
                 <TextView
                     android:id="@+id/tittleAnimeTextView"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:text="@string/anime"
                     android:paddingStart="@dimen/_15sdp"
-                    android:paddingTop="@dimen/_15sdp"
                     android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_25sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/nextAnimeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:background="@drawable/button_white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/next"/>
+                <Button
+                    android:id="@+id/backAnimeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:background="@drawable/button_white"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_toLeftOf="@id/nextAnimeButton"
+                    android:text="@string/back"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/animeRecycler"
                     android:layout_below="@id/tittleAnimeTextView"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <ProgressBar
+                    android:id="@+id/loadingAnime"
+                    android:outlineSpotShadowColor="@color/colorPrimary"
+                    android:progressTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:progressBackgroundTint="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -77,12 +112,46 @@
                     android:textSize="@dimen/_25sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/nextMangaButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:textAllCaps="false"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:background="@drawable/button_white"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/next"/>
+                <Button
+                    android:id="@+id/backMangaButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:textAllCaps="false"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:background="@drawable/button_white"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_toLeftOf="@id/nextMangaButton"
+                    android:text="@string/back"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/mangaRecycler"
                     android:layout_below="@id/tittleMangaTextView"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <ProgressBar
+                    android:id="@+id/loadingManga"
+                    android:outlineSpotShadowColor="@color/colorPrimary"
+                    android:progressTint="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:outlineAmbientShadowColor="@color/colorPrimary"
+                    android:progressBackgroundTint="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
         </LinearLayout>

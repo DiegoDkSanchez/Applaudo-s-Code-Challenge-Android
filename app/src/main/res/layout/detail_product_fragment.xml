@@ -19,6 +19,8 @@
             android:layout_marginTop="@dimen/_100sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/button_primary_dark"
+            android:textColor="@color/white"
             android:text="@string/youtube_trailer"
             android:textAllCaps="false"
             android:fontFamily="@font/nunito_bold"
