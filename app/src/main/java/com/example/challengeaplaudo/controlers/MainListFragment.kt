@@ -51,8 +51,8 @@ class MainListFragment: Fragment() {
         loadListener()
         currentPageAnime = 0
         currentPageManga = 0
-        loadingAnime.showLoading()
-        loadingManga.showLoading()
+        loadingAnime.visible()
+        loadingManga.visible()
         viewmodel.getProducts()
     }
 
@@ -61,7 +61,7 @@ class MainListFragment: Fragment() {
         if(currentPageAnime == 0) backAnimeButton.visibility = View.GONE
         else backAnimeButton.visibility = View.VISIBLE
         animeRecycler.adapter = createAdapterProducts(animes)
-        loadingAnime.stopLoading()
+        loadingAnime.gone()
         enableButtons()
         snapHelperAnime.attachToRecyclerView(animeRecycler)
     }
@@ -70,7 +70,7 @@ class MainListFragment: Fragment() {
         if(currentPageManga == 0) backMangaButton.visibility = View.GONE
         else backMangaButton.visibility = View.VISIBLE
         mangaRecycler.adapter = createAdapterProducts(mangas)
-        loadingManga.stopLoading()
+        loadingManga.gone()
         enableButtons()
         snapHelperManga.attachToRecyclerView(mangaRecycler)
     }
@@ -111,31 +111,32 @@ class MainListFragment: Fragment() {
         searchImg.setOnClickListener {
             disableButtons()
             viewmodel.searchProducts(textSerachEditText.text.toString())
-            loadingAnime.showLoading()
-            loadingManga.showLoading()
+            context?.hideKeyboard(this.view!!)
+            loadingAnime.visible()
+            loadingManga.visible()
         }
         nextAnimeButton.setOnClickListener {
             disableButtons()
             currentPageAnime += 20
-            loadingAnime.showLoading()
+            loadingAnime.visible()
             viewmodel.loadAnimes(currentPageAnime)
         }
         backAnimeButton.setOnClickListener {
             disableButtons()
             currentPageAnime -= 20
-            loadingAnime.showLoading()
+            loadingAnime.visible()
             viewmodel.loadAnimes(currentPageAnime)
         }
         nextMangaButton.setOnClickListener {
             disableButtons()
             currentPageManga += 20
-            loadingManga.showLoading()
+            loadingManga.visible()
             viewmodel.loadMangas(currentPageManga)
         }
         backMangaButton.setOnClickListener {
             disableButtons()
             currentPageManga -= 20
-            loadingManga.showLoading()
+            loadingManga.visible()
             viewmodel.loadMangas(currentPageManga)
         }
     }
