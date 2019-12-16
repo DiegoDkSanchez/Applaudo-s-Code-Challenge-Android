@@ -18,3 +18,6 @@ https://github.com/intuit/sdp
 
 Glide (Management image)
 https://github.com/bumptech/glide
+
+Lottie (Animation in JSON)
+https://github.com/airbnb/lottie-android
